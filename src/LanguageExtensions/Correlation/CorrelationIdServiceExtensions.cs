@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LanguageExtensions.Correlation;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace LanguageExtensions.Correlation
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class CorrelationIdServiceExtensions
     {
