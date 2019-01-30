@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LanguageExtensions.DataAccess.InMemory\LanguageExtensions.DataAccess.InMemory.csproj" />
+    <ProjectReference Include="..\LanguageExtensions.DataAccess.MongoDb\LanguageExtensions.DataAccess.MongoDb.csproj" />
   </ItemGroup>
 
   <ItemGroup>

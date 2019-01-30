@@ -31,20 +31,10 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         #endregion
 
-        #region IInsertRepository Implementation
-
-        public Task<TKey> AddAsync(TEntity entity) => throw new NotImplementedException();
-        public Task<IEnumerable<TKey>> AddManyAsync(IEnumerable<TEntity> entities) => throw new NotImplementedException();
-
-        #endregion
-
         #region IGetRepository Implementation
 
         public async Task<TEntity> GetAsync(TKey key)
             => _seedData.FirstOrDefault(GetPrimaryKeySpecification(key));
-
-        public async Task<IEnumerable<TEntity>> GetManyAsync(params TKey[] keys)
-            => await GetManyAsync(keys.ToList());
 
         public async Task<IEnumerable<TEntity>> GetManyAsync(IEnumerable<TKey> keys)
         {
