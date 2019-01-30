@@ -32,7 +32,7 @@ namespace LanguageExtensions.Specifications
         }
 
         public override Expression<Func<T, bool>> ToExpression()
-            => _left.ToExpression().And(_right.ToExpression());
+            => _left.ToExpression().Or(_right.ToExpression());
     }
 
     internal class NotSpecification<T> : Specification<T>
