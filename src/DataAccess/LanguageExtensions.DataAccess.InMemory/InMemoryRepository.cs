@@ -8,7 +8,7 @@ using LanguageExtensions.Specifications;
 
 namespace LanguageExtensions.DataAccess.InMemory
 {
-    public class InMemoryRepository<TEntity, TKey> : IGetRepository<TEntity, TKey>
+    public class InMemoryRepository<TEntity, TKey> : IGetRepository<TEntity, TKey> where TEntity : class
     {
         #region private fields
 

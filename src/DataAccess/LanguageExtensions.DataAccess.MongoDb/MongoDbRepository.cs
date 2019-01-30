@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LanguageExtensions.DataAccess.MongoDb
 {
-    public class MongoDbRepository<TEntity, TKey> : IGetRepository<TEntity, TKey>
+    public class MongoDbRepository<TEntity, TKey> : IGetRepository<TEntity, TKey> where TEntity : class
     {
         private readonly IMongoDatabase _database;
         private readonly string _collectionName;
