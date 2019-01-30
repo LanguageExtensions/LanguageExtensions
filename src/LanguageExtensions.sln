@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessSample", "Samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.Specification", "LanguageExtensions.Specification\LanguageExtensions.Specification.csproj", "{353068E3-5CBF-48B4-91C8-F835BA9F88E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.DataAccess.EntityFramework", "DataAccess\LanguageExtensions.DataAccess.EntityFramework\LanguageExtensions.DataAccess.EntityFramework.csproj", "{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{353068E3-5CBF-48B4-91C8-F835BA9F88E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{353068E3-5CBF-48B4-91C8-F835BA9F88E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{353068E3-5CBF-48B4-91C8-F835BA9F88E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{E669E964-0C92-4AB7-85EA-A52AA76F996E} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
 		{878618FF-208D-47A3-834B-9A3AA6D54F4F} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
 		{2636349A-946E-4DDD-9EA4-CFDFAB27FA66} = {58BA4481-86C4-416A-AB7C-90018E3A02B5}
+		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CAA08C1-EF2D-49E7-8F0C-773B8E025951}
