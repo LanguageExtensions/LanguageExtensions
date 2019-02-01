@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LanguageExtensions.AspNetCore\LanguageExtensions.AspNetCore.csproj" />
+    <ProjectReference Include="..\LanguageExtensions.Specification\LanguageExtensions.Specification.csproj" />
   </ItemGroup>
 
 </Project>

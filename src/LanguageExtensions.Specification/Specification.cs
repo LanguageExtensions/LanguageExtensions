@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 
 namespace LanguageExtensions.Specifications
@@ -86,5 +85,4 @@ namespace LanguageExtensions.Specifications
         /// <param name="spec"></param>
         public static implicit operator Func<T, bool>(Specification<T> spec) => spec.IsSatisfiedBy;
     }
-
 }
