@@ -11,21 +11,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{E2CF538A-65F1-4815-A18B-6037B5EE7FE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.DataAccess.Abstractions", "DataAccess\LanguageExtensions.DataAccess.Abstractions\LanguageExtensions.DataAccess.Abstractions.csproj", "{83B1F897-FFAD-48EF-9B8E-1AEC552EFB17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.DataAccess.Abstractions", "DataAccess\LanguageExtensions.DataAccess.Abstractions\LanguageExtensions.DataAccess.Abstractions.csproj", "{83B1F897-FFAD-48EF-9B8E-1AEC552EFB17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.DataAccess.MongoDb", "DataAccess\LanguageExtensions.DataAccess.MongoDb\LanguageExtensions.DataAccess.MongoDb.csproj", "{402EE239-81B0-4DDE-A440-5FB6E6EFA8C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.DataAccess.MongoDb", "DataAccess\LanguageExtensions.DataAccess.MongoDb\LanguageExtensions.DataAccess.MongoDb.csproj", "{402EE239-81B0-4DDE-A440-5FB6E6EFA8C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.DataAccess.InMemory", "DataAccess\LanguageExtensions.DataAccess.InMemory\LanguageExtensions.DataAccess.InMemory.csproj", "{E669E964-0C92-4AB7-85EA-A52AA76F996E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.DataAccess.InMemory", "DataAccess\LanguageExtensions.DataAccess.InMemory\LanguageExtensions.DataAccess.InMemory.csproj", "{E669E964-0C92-4AB7-85EA-A52AA76F996E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.DataAccess.IntegrationTests", "DataAccess\LanguageExtensions.DataAccess.IntegrationTests\LanguageExtensions.DataAccess.IntegrationTests.csproj", "{878618FF-208D-47A3-834B-9A3AA6D54F4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.DataAccess.IntegrationTests", "DataAccess\LanguageExtensions.DataAccess.IntegrationTests\LanguageExtensions.DataAccess.IntegrationTests.csproj", "{878618FF-208D-47A3-834B-9A3AA6D54F4F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{58BA4481-86C4-416A-AB7C-90018E3A02B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessSample", "Samples\DataAccess\DataAccessSample\DataAccessSample.csproj", "{2636349A-946E-4DDD-9EA4-CFDFAB27FA66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessSample", "Samples\DataAccess\DataAccessSample\DataAccessSample.csproj", "{2636349A-946E-4DDD-9EA4-CFDFAB27FA66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.Specification", "LanguageExtensions.Specification\LanguageExtensions.Specification.csproj", "{353068E3-5CBF-48B4-91C8-F835BA9F88E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.Specification", "LanguageExtensions.Specification\LanguageExtensions.Specification.csproj", "{353068E3-5CBF-48B4-91C8-F835BA9F88E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageExtensions.DataAccess.EntityFramework", "DataAccess\LanguageExtensions.DataAccess.EntityFramework\LanguageExtensions.DataAccess.EntityFramework.csproj", "{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageExtensions.DataAccess.EntityFramework", "DataAccess\LanguageExtensions.DataAccess.EntityFramework\LanguageExtensions.DataAccess.EntityFramework.csproj", "{6741DD24-B81B-4B24-A5F2-99E9F4CC913E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{F4EC87F5-1203-40D2-B7C4-DD7608207EB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,11 +81,12 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{83B1F897-FFAD-48EF-9B8E-1AEC552EFB17} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
-		{402EE239-81B0-4DDE-A440-5FB6E6EFA8C0} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
-		{E669E964-0C92-4AB7-85EA-A52AA76F996E} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
+		{402EE239-81B0-4DDE-A440-5FB6E6EFA8C0} = {F4EC87F5-1203-40D2-B7C4-DD7608207EB2}
+		{E669E964-0C92-4AB7-85EA-A52AA76F996E} = {F4EC87F5-1203-40D2-B7C4-DD7608207EB2}
 		{878618FF-208D-47A3-834B-9A3AA6D54F4F} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
 		{2636349A-946E-4DDD-9EA4-CFDFAB27FA66} = {58BA4481-86C4-416A-AB7C-90018E3A02B5}
-		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
+		{6741DD24-B81B-4B24-A5F2-99E9F4CC913E} = {F4EC87F5-1203-40D2-B7C4-DD7608207EB2}
+		{F4EC87F5-1203-40D2-B7C4-DD7608207EB2} = {E2CF538A-65F1-4815-A18B-6037B5EE7FE0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CAA08C1-EF2D-49E7-8F0C-773B8E025951}

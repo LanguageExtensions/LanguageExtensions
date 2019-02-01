@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace LanguageExtensions.Specifications
 {
@@ -55,5 +57,11 @@ namespace LanguageExtensions.Specifications
         /// <param name="specs"></param>
         /// <returns></returns>
         public static Specification<T> Any<T>(this IEnumerable<Specification<T>> specs) => new AnySpecification<T>(specs);
+
+    }
+
+    public static class SpecificationExtensionsExpressions
+    {
+        public static Specification<T> ToSpecification<T>(this Expression<Func<T, bool>> predicate) => new PredicateSpecification<T>(predicate);
     }
 }

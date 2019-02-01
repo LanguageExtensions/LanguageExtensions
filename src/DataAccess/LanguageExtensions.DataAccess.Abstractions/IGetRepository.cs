@@ -30,6 +30,5 @@ namespace LanguageExtensions.DataAccess.Abstractions
         /// <returns>The entity that matches on the primary key</returns>
         public static async Task<IEnumerable<T>> GetManyAsync<T, TKey>(this IGetRepository<T, TKey> repository, params TKey[] keys) where T : class
             => await repository.GetManyAsync(keys.ToList());
-
     }
 }

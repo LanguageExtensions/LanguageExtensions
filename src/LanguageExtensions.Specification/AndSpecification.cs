@@ -63,4 +63,13 @@ namespace LanguageExtensions.Specifications
 
         public override Expression<Func<T, bool>> ToExpression() => _specs.Aggregate((s1, s2) => s1.Or(s2)).ToExpression();
     }
+
+    internal class PredicateSpecification<T> : Specification<T>
+    {
+        private readonly Expression<Func<T, bool>> _predicate;
+
+        public PredicateSpecification(Expression<Func<T, bool>> predicate) => _predicate = predicate;
+
+        public override Expression<Func<T, bool>> ToExpression() => _predicate;
+    }
 }

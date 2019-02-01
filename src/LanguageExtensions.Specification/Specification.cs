@@ -35,7 +35,6 @@ namespace LanguageExtensions.Specifications
         /// </summary>
         public static Specification<T> operator !(Specification<T> spec) => new NotSpecification<T>(spec);
 
-
         /// <summary>
         /// Combines a specification with a boolean value. 
         /// The candidate meets the criteria only when the boolean is true.
@@ -72,7 +71,6 @@ namespace LanguageExtensions.Specifications
         /// <returns>New specification</returns>
         public static Specification<T> operator !=(Specification<T> spec, bool value) => value ? !spec : spec;
 
-
         /// <summary>
         /// Allows using Specification[T] in place of a lambda expression.
         /// </summary>
@@ -83,6 +81,8 @@ namespace LanguageExtensions.Specifications
         /// Allows using Specification[T] in place of Func[T, bool].
         /// </summary>
         /// <param name="spec"></param>
-        public static implicit operator Func<T, bool>(Specification<T> spec) => spec.IsSatisfiedBy;
+        public static explicit operator Func<T, bool>(Specification<T> spec) => spec.IsSatisfiedBy;
+
+        public static explicit operator Specification<T>(Expression<Func<T, bool>> predicate) => new PredicateSpecification<T>(predicate);
     }
 }
