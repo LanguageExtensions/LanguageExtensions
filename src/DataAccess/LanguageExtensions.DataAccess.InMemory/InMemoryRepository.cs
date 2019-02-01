@@ -8,20 +8,22 @@ using LanguageExtensions.Specifications;
 
 namespace LanguageExtensions.DataAccess.InMemory
 {
-    public class InMemoryRepository<TEntity, TKey> : IGetRepository<TEntity, TKey> where TEntity : class
+    public class InMemoryRepository<TEntity, TKey> : 
+        IGetRepository<TEntity, TKey>, 
+        IRepositoryWithKey<TEntity, TKey>
+            where TEntity : class
     {
         #region private fields
 
-        private readonly Expression<Func<TEntity, TKey>> _primaryKeySelector;
         private readonly List<TEntity> _seedData;
 
         #endregion
-        
+
         #region Constructor
 
         public InMemoryRepository(Expression<Func<TEntity, TKey>> primaryKeySelector, IEnumerable<TEntity> seedData)
         {
-            _primaryKeySelector = primaryKeySelector;
+            PrimaryKeySelector = primaryKeySelector;
             _seedData = seedData.ToList();
         }
 
@@ -33,22 +35,17 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         #region IGetRepository Implementation
 
-        public async Task<TEntity> GetAsync(TKey key)
-            => _seedData.FirstOrDefault(GetPrimaryKeySpecification(key));
+        public Task<TEntity> GetAsync(TKey key)
+            => Task.FromResult(_seedData.FirstOrDefault(this.GetPrimaryKeySpecification(key)));
 
-        public async Task<IEnumerable<TEntity>> GetManyAsync(IEnumerable<TKey> keys)
-        {
-            var spec = keys.Select(GetPrimaryKeySpecification)
-                .Aggregate((left, right) => left.Or(right));
-            return _seedData.Where(spec).ToList();
-        }
+        public Task<IEnumerable<TEntity>> GetManyAsync(IEnumerable<TKey> keys)
+            => Task.FromResult<IEnumerable<TEntity>>(_seedData.Where(this.GetPrimaryKeySpecification(keys)).ToList());
 
         #endregion
-        
-        #region Private Helper Methods
 
-        private Specification<TEntity> GetPrimaryKeySpecification(TKey key)
-            => new PropertySpecification<TEntity, TKey>(_primaryKeySelector, key);
+        #region IRepositoryWithKey Implementation
+
+        public Expression<Func<TEntity, TKey>> PrimaryKeySelector { get; }
 
         #endregion
     }

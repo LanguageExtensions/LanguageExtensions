@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,6 +68,7 @@ namespace LanguageExtensions.DataAccess.IntegrationTests
 
     public class UserDto
     {
+        [Key]
         public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -73,5 +76,7 @@ namespace LanguageExtensions.DataAccess.IntegrationTests
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Contact { get; set; }
+
+        public override string ToString() => $"{Id} : {UserName}";
     }
 }

@@ -1,20 +1,27 @@
-﻿using System;
+﻿using LanguageExtensions.Specifications;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace LanguageExtensions.DataAccess.Abstractions
 {
-    public interface IRepositoryWithKey<T, TKey>
+    public interface IRepositoryWithKey<TEntity, TKey>
+        where TEntity : class
     {
-        /// <summary>
-        /// Returns the Type for the entity of this repository.
-        /// </summary>
-        Type EntityType { get; }
+        Expression<Func<TEntity, TKey>> PrimaryKeySelector { get; }
+    }
 
-        /// <summary>
-        /// Returns the Type for the key of this repository.
-        /// </summary>
-        Type KeyType { get; }
-
-        Expression<Func<T, bool>> GetSelector(params TKey[] keys);
+    public static class REpositoryWithKeyExtensions
+    {
+        public static Specification<TEntity> GetPrimaryKeySpecification<TEntity, TKey>(this IRepositoryWithKey<TEntity, TKey> repository, TKey key)
+            where TEntity : class 
+                => new PropertySpecification<TEntity, TKey>(repository.PrimaryKeySelector, key);
+        public static Specification<TEntity> GetPrimaryKeySpecification<TEntity, TKey>(
+            this IRepositoryWithKey<TEntity, TKey> repository, 
+            IEnumerable<TKey> keys)
+                where TEntity : class
+                    => keys.Select(key => repository.GetPrimaryKeySpecification(key))
+                        .Aggregate((left, right) => left.Or(right));
     }
 }

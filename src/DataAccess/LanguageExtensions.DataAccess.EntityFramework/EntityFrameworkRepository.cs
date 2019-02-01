@@ -3,36 +3,50 @@ using LanguageExtensions.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LanguageExtensions.DataAccess.EntityFramework
 {
-    public class EntityFrameworkRepository<TEntity, TKey> : IGetRepository<TEntity, TKey> where TEntity : class
+    public class EntityFrameworkRepository<TEntity, TKey> :
+        IGetRepository<TEntity, TKey>,
+        IRepositoryWithKey<TEntity, TKey>
+            where TEntity : class
     {
         private readonly IDbSet<TEntity> _dbSet;
         private readonly DbContext _dbContext;
-        private readonly Expression<Func<TEntity, TKey>> _primaryKeySelector;
+        
+        #region Constructor
 
         public EntityFrameworkRepository(DbContext dbContext, Expression<Func<TEntity, TKey>> primaryKeySelector)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
-            _primaryKeySelector = primaryKeySelector;
+            PrimaryKeySelector = primaryKeySelector;
         }
+
+        #endregion
+
+        #region IRepositoryWithKey Implementation
+
+        public Expression<Func<TEntity, TKey>> PrimaryKeySelector { get; }
+
+        #endregion
+
+        #region IGetRepository Implementation
 
         public async Task<TEntity> GetAsync(TKey key)
         {
-            var spec = GetPrimaryKeySpecification(key);
-            return await _dbSet.FirstOrDefaultAsync();
+            var spec = this.GetPrimaryKeySpecification(key);
+            return await _dbSet.FirstOrDefaultAsync(spec);
         }
 
-        public Task<IEnumerable<TEntity>> GetManyAsync(IEnumerable<TKey> keys) => throw new NotImplementedException();
-
-        #region Private Helper Methods
-
-        private Specification<TEntity> GetPrimaryKeySpecification(TKey key)
-            => new PropertySpecification<TEntity, TKey>(_primaryKeySelector, key);
+        public async Task<IEnumerable<TEntity>> GetManyAsync(IEnumerable<TKey> keys)
+        {
+            var spec = this.GetPrimaryKeySpecification(keys);
+            return await _dbSet.Where(spec).ToListAsync();
+        }
 
         #endregion
     }
