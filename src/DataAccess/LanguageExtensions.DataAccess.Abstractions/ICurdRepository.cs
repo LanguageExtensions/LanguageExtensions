@@ -1,6 +1,8 @@
 ﻿namespace LanguageExtensions.DataAccess.Abstractions
 {
-    public interface ICurdRepository<T, TKey>: IInsertRepository<T, TKey>, IGetRepository<T, TKey> where T : class
+    public interface ICurdRepository<TEntity, TKey>: 
+        IFindRepository<TEntity>, 
+        IGetRepository<TEntity, TKey> where TEntity : class
     {
     }
 }

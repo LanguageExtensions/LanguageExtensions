@@ -53,7 +53,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
     {
         #region private fields
 
-        protected readonly IMongoDatabase _database;
+        protected IMongoDatabase _database;
         protected readonly string _collectionName;
 
         #endregion
@@ -86,6 +86,22 @@ namespace LanguageExtensions.DataAccess.MongoDb
         {
             var predicate = Builders<TEntity>.Filter.Where(specification);
             return await GetCollection().Find(predicate).FirstOrDefaultAsync();
+        }
+
+        #endregion
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+            if (_database == null) return;
+            _database = null;
         }
 
         #endregion

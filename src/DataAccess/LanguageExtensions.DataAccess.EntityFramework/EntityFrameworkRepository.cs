@@ -55,7 +55,7 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         #region protected Fields
 
         protected readonly IDbSet<TEntity> _dbSet;
-        protected readonly DbContext _dbContext;
+        protected DbContext _dbContext;
 
         #endregion
 
@@ -73,6 +73,25 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 
         public async Task<TEntity> FindAsync(Specification<TEntity> specification) 
             => await _dbSet.FirstOrDefaultAsync(specification);
+
+        #endregion
+
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+            if (_dbContext == null) return;
+
+            _dbContext.Dispose();
+            _dbContext = null;
+        }
 
         #endregion
     }

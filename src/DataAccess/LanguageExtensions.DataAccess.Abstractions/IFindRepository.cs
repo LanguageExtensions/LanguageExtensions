@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace LanguageExtensions.DataAccess.Abstractions
 {
-    public interface IFindRepository<TEntity> where TEntity : class
+    public interface IFindRepository<TEntity> : IDisposable
+        where TEntity : class
     {
         Task<TEntity> FindAsync(Specification<TEntity> specification);
     }

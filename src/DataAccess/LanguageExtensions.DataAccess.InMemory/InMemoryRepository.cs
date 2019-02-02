@@ -67,5 +67,11 @@ namespace LanguageExtensions.DataAccess.InMemory
         public Task<TEntity> FindAsync(Specification<TEntity> specification) => Task.FromResult(_seedData.FirstOrDefault(specification.IsSatisfiedBy));
 
         #endregion
+
+        #region IDisposable
+
+        public void Dispose() { }
+
+        #endregion
     }
 }
