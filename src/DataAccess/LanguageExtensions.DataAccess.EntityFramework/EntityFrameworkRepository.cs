@@ -10,19 +10,16 @@ using System.Threading.Tasks;
 namespace LanguageExtensions.DataAccess.EntityFramework
 {
     public class EntityFrameworkRepository<TEntity, TKey> :
+        EntityFrameworkRepository<TEntity>,
         IGetRepository<TEntity, TKey>,
         IRepositoryWithKey<TEntity, TKey>
             where TEntity : class
     {
-        private readonly IDbSet<TEntity> _dbSet;
-        private readonly DbContext _dbContext;
-        
         #region Constructor
 
         public EntityFrameworkRepository(DbContext dbContext, Expression<Func<TEntity, TKey>> primaryKeySelector)
+            : base(dbContext)
         {
-            _dbContext = dbContext;
-            _dbSet = _dbContext.Set<TEntity>();
             PrimaryKeySelector = primaryKeySelector;
         }
 
@@ -46,6 +43,54 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         {
             var spec = this.GetPrimaryKeySpecification(keys);
             return await _dbSet.Where(spec).ToListAsync();
+        }
+
+        #endregion
+    }
+
+    public class EntityFrameworkRepository<TEntity>
+        : IFindRepository<TEntity>
+            where TEntity : class
+    {
+        #region protected Fields
+
+        protected readonly IDbSet<TEntity> _dbSet;
+        protected DbContext _dbContext;
+
+        #endregion
+
+        #region Constructor
+
+        public EntityFrameworkRepository(DbContext dbContext)
+        {
+            _dbContext = dbContext;
+            _dbSet = _dbContext.Set<TEntity>();
+        }
+
+        #endregion
+
+        #region IFindRepository Implementation
+
+        public async Task<TEntity> FindAsync(Specification<TEntity> specification) 
+            => await _dbSet.FirstOrDefaultAsync(specification);
+
+        #endregion
+
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+            if (_dbContext == null) return;
+
+            _dbContext.Dispose();
+            _dbContext = null;
         }
 
         #endregion
