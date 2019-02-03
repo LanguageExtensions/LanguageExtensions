@@ -1,0 +1,29 @@
+-
+  branches:
+    only:
+    - master
+  after_build:
+    - ps: ./pack.ps1 -versionSuffix ''
+  artifacts:
+  - path: '\publish'
+    name: Packages
+-
+  version: '1.0.{build}'
+  image: Visual Studio 2017
+  configuration: Release
+  init:
+    # Good practise, because Windows line endings are different from Unix/Linux ones
+    - cmd: git config --global core.autocrlf true
+  before_build:
+    # Display .NET Core version
+    - cmd: dotnet --version
+    # Display minimal restore text
+    - cmd: dotnet restore ./src/LanguageExtensions.sln --verbosity m
+  build_script:
+    - cmd: dotnet build ./src/LanguageExtensions.sln
+  clone_depth: 1
+  deploy: "off"
+  services:
+    - mongodb
+  test_script:
+    - cmd: dotnet test ./src/DataAccess/LanguageExtensions.DataAccess.IntegrationTests/LanguageExtensions.DataAccess.IntegrationTests.csproj
