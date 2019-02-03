@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using LanguageExtensions.DataAccess.IntegrationTests.Models;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
 namespace LanguageExtensions.DataAccess.IntegrationTests.EntityFramework.DataContext

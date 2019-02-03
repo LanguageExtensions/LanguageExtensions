@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using TextCopy;
 
 namespace DataAccessSample
 {
@@ -10,17 +11,25 @@ namespace DataAccessSample
     {
         static void Main(string[] args)
         {
-            var dummyUsers = JsonConvert.SerializeObject(GetDummyUsers().Take(10).ToList(), Formatting.Indented);
-            //GetDummyUsers().Take(10).ToList().ForEach(Console.WriteLine);
+            Console.Write("Number of Items to Generate: ");
+            int total = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Start Index: ");
+            int seed = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+
+            var dummyUsers = JsonConvert.SerializeObject(GetDummyUsers(seed).Take(total).ToList(), Formatting.Indented);
             Console.WriteLine(dummyUsers);
+            Clipboard.SetText(dummyUsers);
+            Console.WriteLine();
+            Console.WriteLine("Generated Json copied to Console");
             Console.ReadLine();
         }
 
-        private static IEnumerable<User> GetDummyUsers()
+        private static IEnumerable<User> GetDummyUsers(int startId)
         {
             var ramdom = new Random();
             var faker = new Faker<User>()
-                .RuleFor(c => c.Id, c => c.IndexFaker)
+                .RuleFor(c => c.Id, c => startId++)
                 .RuleFor(c => c.FirstName, c => c.Person.FirstName)
                 .RuleFor(c => c.LastName, c => c.Person.LastName)
                 .RuleFor(c => c.UserName, c => c.Person.UserName)

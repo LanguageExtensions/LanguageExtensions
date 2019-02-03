@@ -11,6 +11,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
     public class MongoDbRepository<TEntity, TKey> :
         MongoDbRepository<TEntity>,
         IGetRepository<TEntity, TKey>,
+        IInsertRepository<TEntity, TKey>,
         IRepositoryWithKey<TEntity, TKey>
             where TEntity : class
     {
@@ -43,6 +44,16 @@ namespace LanguageExtensions.DataAccess.MongoDb
         #region IRepositoryWithKey Implementation
 
         public Expression<Func<TEntity, TKey>> PrimaryKeySelector { get; }
+
+        #endregion
+
+        #region IInsertRepository
+
+        public async Task<TKey> AddAsync(TEntity entity)
+        {
+            await GetCollection().InsertOneAsync(entity);
+            return this.GetPrimaryKey(entity);
+        }
 
         #endregion
     }
