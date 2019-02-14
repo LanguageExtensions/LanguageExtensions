@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LanguageExtensions.DataAccess.Abstractions
@@ -18,6 +19,6 @@ namespace LanguageExtensions.DataAccess.Abstractions
         /// Adds the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        //Task AddRangeAsync(IEnumerable<TEntity> entities);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
     }
 }

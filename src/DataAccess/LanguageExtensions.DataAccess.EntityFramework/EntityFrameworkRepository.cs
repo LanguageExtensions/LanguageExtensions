@@ -57,6 +57,12 @@ namespace LanguageExtensions.DataAccess.EntityFramework
             return this.GetPrimaryKey(entity);
         }
 
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            entities.ToList().ForEach(entity => _dbSet.Add(entity));
+            await _dbContext.SaveChangesAsync();
+        }
+
         #endregion
     }
 

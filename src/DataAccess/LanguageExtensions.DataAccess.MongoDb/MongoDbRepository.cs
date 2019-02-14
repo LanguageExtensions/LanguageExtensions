@@ -55,6 +55,9 @@ namespace LanguageExtensions.DataAccess.MongoDb
             return this.GetPrimaryKey(entity);
         }
 
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities) 
+            => await GetCollection().InsertManyAsync(entities);
+
         #endregion
     }
 

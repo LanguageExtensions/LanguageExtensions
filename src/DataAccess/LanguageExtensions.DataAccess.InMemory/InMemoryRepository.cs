@@ -52,6 +52,14 @@ namespace LanguageExtensions.DataAccess.InMemory
             return Task.FromResult(this.GetPrimaryKey(entity));
         }
 
+        public Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            _data.AddRange(entities);
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
         private TKey GenerateKey()
         {
             object returnVal;
@@ -70,8 +78,6 @@ namespace LanguageExtensions.DataAccess.InMemory
             }
             return (TKey)returnVal;
         }
-
-        #endregion
     }
 
     public class InMemoryRepository<TEntity> : IFindRepository<TEntity>
