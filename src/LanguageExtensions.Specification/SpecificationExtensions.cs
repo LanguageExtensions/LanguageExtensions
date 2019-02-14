@@ -14,7 +14,7 @@ namespace LanguageExtensions.Specifications
         /// </summary>
         /// <param name="candidate"></param>
         /// <returns>New specification</returns>
-        public static bool Is<T>(this T candidate, Specification<T> spec) => spec.IsSatisfiedBy(candidate);
+        public static bool Is<TEntity>(this TEntity candidate, Specification<TEntity> spec) => spec.IsSatisfiedBy(candidate);
         
         /// <summary>
         /// Composes two ISpecifications using an And operator.
@@ -23,7 +23,7 @@ namespace LanguageExtensions.Specifications
         /// <param name="spec1"></param>
         /// <param name="spec2"></param>
         /// <returns></returns>
-        public static Specification<T> And<T>(this Specification<T> spec1, Specification<T> spec2) => new AndSpecification<T>(spec1, spec2);
+        public static Specification<TEntity> And<TEntity>(this Specification<TEntity> spec1, Specification<TEntity> spec2) => new AndSpecification<TEntity>(spec1, spec2);
 
         /// <summary>
         /// Composes two ISpecifications using an Or operator.
@@ -32,7 +32,7 @@ namespace LanguageExtensions.Specifications
         /// <param name="spec1"></param>
         /// <param name="spec2"></param>
         /// <returns></returns>
-        public static Specification<T> Or<T>(this Specification<T> spec1, Specification<T> spec2) => new OrSpecification<T>(spec1, spec2);
+        public static Specification<TEntity> Or<TEntity>(this Specification<TEntity> spec1, Specification<TEntity> spec2) => new OrSpecification<TEntity>(spec1, spec2);
 
         /// <summary>
         /// Negates an ISpecification.
@@ -40,7 +40,7 @@ namespace LanguageExtensions.Specifications
         /// <typeparam name="T">Candidate type</typeparam>
         /// <param name="spec">Inner specification</param>
         /// <returns></returns>
-        public static Specification<T> Not<T>(this Specification<T> spec) => new NotSpecification<T>(spec);
+        public static Specification<TEntity> Not<TEntity>(this Specification<TEntity> spec) => new NotSpecification<TEntity>(spec);
 
         /// <summary>
         /// Composes many ISpecifications using an And operator.
@@ -48,7 +48,7 @@ namespace LanguageExtensions.Specifications
         /// <typeparam name="T">Candidate type</typeparam>
         /// <param name="specs"></param>
         /// <returns></returns>
-        public static Specification<T> All<T>(this IEnumerable<Specification<T>> specs) => new AllSpecification<T>(specs);
+        public static Specification<TEntity> All<TEntity>(this IEnumerable<Specification<TEntity>> specs) => new AllSpecification<TEntity>(specs);
 
         /// <summary>
         /// Composes many ISpecifications using an And operator.
@@ -56,12 +56,13 @@ namespace LanguageExtensions.Specifications
         /// <typeparam name="T">Candidate type</typeparam>
         /// <param name="specs"></param>
         /// <returns></returns>
-        public static Specification<T> Any<T>(this IEnumerable<Specification<T>> specs) => new AnySpecification<T>(specs);
+        public static Specification<TEntity> Any<TEntity>(this IEnumerable<Specification<TEntity>> specs) => new AnySpecification<TEntity>(specs);
 
     }
 
     public static class SpecificationExtensionsExpressions
     {
-        public static Specification<T> ToSpecification<T>(this Expression<Func<T, bool>> predicate) => new PredicateSpecification<T>(predicate);
+        public static Specification<TEntity> ToSpecification<TEntity>(this Expression<Func<TEntity, bool>> predicate) 
+            => new PredicateSpecification<TEntity>(predicate);
     }
 }

@@ -11,6 +11,7 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 {
     public class EntityFrameworkRepository<TEntity, TKey> :
         EntityFrameworkRepository<TEntity>,
+        IInsertRepository<TEntity, TKey>,
         IGetRepository<TEntity, TKey>,
         IRepositoryWithKey<TEntity, TKey>
             where TEntity : class
@@ -43,6 +44,23 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         {
             var spec = this.GetPrimaryKeySpecification(keys);
             return await _dbSet.Where(spec).ToListAsync();
+        }
+
+        #endregion
+
+        #region IInsertRepository
+
+        public async Task<TKey> AddAsync(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            await _dbContext.SaveChangesAsync();
+            return this.GetPrimaryKey(entity);
+        }
+
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            entities.ToList().ForEach(entity => _dbSet.Add(entity));
+            await _dbContext.SaveChangesAsync();
         }
 
         #endregion

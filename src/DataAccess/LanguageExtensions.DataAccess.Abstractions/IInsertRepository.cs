@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 
 namespace LanguageExtensions.DataAccess.Abstractions
 {
-    public interface IInsertRepository<TEntity, TKey> : IDisposable
+    public interface IInsertRepository<TEntity, TKey> :
+        IRepositoryWithKey<TEntity, TKey>,
+        IDisposable
+            where TEntity : class
     {
         /// <summary>
         /// Adds the specified entity.
@@ -16,6 +19,6 @@ namespace LanguageExtensions.DataAccess.Abstractions
         /// Adds the specified entities.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        Task<IEnumerable<TKey>> AddManyAsync(IEnumerable<TEntity> entities);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
     }
 }
