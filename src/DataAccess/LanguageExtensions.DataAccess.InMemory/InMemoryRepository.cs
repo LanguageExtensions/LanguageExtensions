@@ -5,15 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using LanguageExtensions.Specifications;
-using System.Reflection;
 
 namespace LanguageExtensions.DataAccess.InMemory
 {
     public class InMemoryRepository<TEntity, TKey> :
         InMemoryRepository<TEntity>,
-        IInsertRepository<TEntity, TKey>,
-        IGetRepository<TEntity, TKey>,
-        IRepositoryWithKey<TEntity, TKey>
+        ICurdRepository<TEntity, TKey>
             where TEntity : class
     {
         #region Constructor
@@ -60,6 +57,20 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         #endregion
 
+        #region IUpdateRepository
+
+        public Task UpdateAsync(TEntity entity)
+        {
+            TKey key = this.GetPrimaryKey(entity);
+            var index = _data.FindIndex(this.GetPrimaryKeySpecification(key).IsSatisfiedBy);
+            _data[index] = entity;
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region Private helpers
+
         private TKey GenerateKey()
         {
             object returnVal;
@@ -77,10 +88,13 @@ namespace LanguageExtensions.DataAccess.InMemory
                     break;
             }
             return (TKey)returnVal;
-        }
+        } 
+
+        #endregion
     }
 
-    public class InMemoryRepository<TEntity> : IFindRepository<TEntity>
+    public class InMemoryRepository<TEntity> : 
+        IFindRepository<TEntity>
             where TEntity : class
     {
         #region protected fields
@@ -109,26 +123,5 @@ namespace LanguageExtensions.DataAccess.InMemory
         public void Dispose() => _data = null;
 
         #endregion
-    }
-
-    public static class InMemoryExtensions
-    {
-        public static TEntity SetPrimaryKey<TEntity, TKey>(
-            this IRepositoryWithKey<TEntity, TKey> repository,
-            TEntity entity,
-            TKey key)
-                where TEntity : class
-        {
-            entity.SetPropertyValue(repository.PrimaryKeySelector, key);
-            return entity;
-        }
-
-        public static T SetPropertyValue<T, TValue>(this T target, Expression<Func<T, TValue>> memberLamda, TValue value)
-        {
-            var memberSelectorExpression = memberLamda.Body as MemberExpression;
-            var property = memberSelectorExpression?.Member as PropertyInfo;
-            property?.SetValue(target, value, null);
-            return target;
-        }
     }
 }

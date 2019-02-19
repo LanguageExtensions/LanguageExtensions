@@ -64,6 +64,35 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         }
 
         #endregion
+
+        #region IUpdateRepository
+
+        public async Task UpdateAsync(TEntity entity)
+        {
+            var entry = _dbContext.Entry(entity);
+
+            if (entry.State == EntityState.Detached)
+            {
+                var key = this.GetPrimaryKey(entity);
+
+                // check to see if this item is already attached
+                //  if it is then we need to copy the values to the attached value instead of changing the State to modified since it will throw a duplicate key exception
+                //  specifically: "An object with the same key already exists in the ObjectStateManager. The ObjectStateManager cannot track multiple objects with the same key."
+                var attachedEntity = _dbContext.Set<TEntity>().Find(key);
+                if (attachedEntity != null)
+                {
+                    _dbContext.Entry(attachedEntity).CurrentValues.SetValues(entity);
+                }
+            }
+            else
+            {
+                // default
+                entry.State = EntityState.Modified;
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
+        #endregion
     }
 
     public class EntityFrameworkRepository<TEntity>
@@ -89,7 +118,7 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 
         #region IFindRepository Implementation
 
-        public async Task<TEntity> FindAsync(Specification<TEntity> specification) 
+        public async Task<TEntity> FindAsync(Specification<TEntity> specification)
             => await _dbSet.FirstOrDefaultAsync(specification);
 
         #endregion

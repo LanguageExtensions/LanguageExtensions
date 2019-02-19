@@ -10,9 +10,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
 {
     public class MongoDbRepository<TEntity, TKey> :
         MongoDbRepository<TEntity>,
-        IGetRepository<TEntity, TKey>,
-        IInsertRepository<TEntity, TKey>,
-        IRepositoryWithKey<TEntity, TKey>
+        ICurdRepository<TEntity, TKey>
             where TEntity : class
     {
         #region Constructor
@@ -59,6 +57,16 @@ namespace LanguageExtensions.DataAccess.MongoDb
             => await GetCollection().InsertManyAsync(entities);
 
         #endregion
+
+        #region IUpdateRepository
+
+        public async Task UpdateAsync(TEntity entity)
+        {
+            var filter = Builders<TEntity>.Filter.Eq(PrimaryKeySelector, this.GetPrimaryKey(entity));
+            await GetCollection().ReplaceOneAsync(filter, entity);
+        }
+
+        #endregion
     }
 
     public class MongoDbRepository<TEntity>
@@ -103,6 +111,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
         }
 
         #endregion
+
         #region IDisposable
 
         public void Dispose()
