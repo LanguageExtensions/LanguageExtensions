@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LanguageExtensions.Specification\LanguageExtensions.Specification.csproj" />
     <ProjectReference Include="..\LanguageExtensions.DataAccess.Abstractions\LanguageExtensions.DataAccess.Abstractions.csproj" />
   </ItemGroup>
 

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LanguageExtensions.Specifications;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace LanguageExtensions.Specifications
+namespace LanguageExtensions.DataAccess.Abstractions.Specifications
 {
-    public class PropertySpecification<TEntity, TKey> : Specification<TEntity>
+    internal class PropertySpecification<TEntity, TKey> : Specification<TEntity>
     {
         Lazy<Expression<Func<TEntity, bool>>> _lazySpecification;
         private readonly Expression<Func<TEntity, TKey>> _propertySelector;

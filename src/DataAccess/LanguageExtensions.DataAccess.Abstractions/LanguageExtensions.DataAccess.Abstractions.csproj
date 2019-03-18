@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LanguageExtensions.Specification\LanguageExtensions.Specification.csproj" />
+    <ProjectReference Include="..\..\LanguageExtensions.Specifications\LanguageExtensions.Specifications.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,4 +19,90 @@
     <PackageReference Include="Serilog" Version="2.7.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="FunctionExtensions\Curry\CurryActionExtensions.Right.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryActionExtensions.Right.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Curry\CurryActionExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryActionExtensions.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Curry\CurryFuncExtensions.Right.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryFuncExtensions.Right.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Curry\CurryFuncExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryFuncExtensions.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Partial\PartialActionExtensions.Right.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialActionExtensions.Right.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Partial\PartialActionExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialActionExtensions.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Partial\PartialFuncExtensions.Right.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialFuncExtensions.Right.cs</LastGenOutput>
+    </None>
+    <None Update="FunctionExtensions\Partial\PartialFuncExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialFuncExtensions.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FunctionExtensions\Curry\CurryActionExtensions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryActionExtensions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Curry\CurryActionExtensions.Right.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryActionExtensions.Right.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Curry\CurryFuncExtensions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryFuncExtensions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Curry\CurryFuncExtensions.Right.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryFuncExtensions.Right.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Partial\PartialActionExtensions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialActionExtensions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Partial\PartialActionExtensions.Right.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialActionExtensions.Right.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Partial\PartialFuncExtensions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialFuncExtensions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="FunctionExtensions\Partial\PartialFuncExtensions.Right.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialFuncExtensions.Right.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CommonTemplateIncludes\" />
+  </ItemGroup>
+
 </Project>

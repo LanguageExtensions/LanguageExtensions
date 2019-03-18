@@ -1,4 +1,5 @@
-﻿using LanguageExtensions.Specifications;
+﻿using LanguageExtensions.DataAccess.Abstractions.Specifications;
+using LanguageExtensions.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;

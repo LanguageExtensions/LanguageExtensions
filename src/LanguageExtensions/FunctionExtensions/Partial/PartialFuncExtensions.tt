@@ -1,0 +1,50 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# 
+string namespaceToUse = "Jst4Code.FunctionalCS";
+string staticClassName = "PartialFuncExtensions";
+int funcVariations = 15;
+#>
+using System;
+using System.Diagnostics.Contracts;
+
+namespace <#= namespaceToUse #>
+{
+    public static partial class <#= staticClassName #>
+    {<# 
+    for(int i = 2; i<funcVariations + 2; i++) { 
+    Func<string, string, string> formatText = (separater, prifix) =>  string.Join(separater, Enumerable.Range(1, i).Select(k => $"{prifix}{k}")); 
+    string functionInput = formatText(", ", "value");#>
+
+        #region Partial<<#= formatText(", ", "T") #>, TResult>
+<#
+for(int j = 1; j<i; j++) { 
+string partialFunctionInput = string.Join(", ", Enumerable.Range(1, i-j).Select(k => string.Format("T{0} value{0}", k)));
+string partialMethodInputs = string.Join(", ", Enumerable.Range(1, i).Skip(i-j).Select(k => string.Format("value{0}", k)));
+string resultGenericTypes = string.Join(", ", Enumerable.Range(1, i).Skip(i-j).Select(k => string.Format("T{0}", k)));
+string resultMethodInputs = string.Join(", ", Enumerable.Range(i-j+1, j).Select(k => string.Format("T{0} value{0}", k)));
+string inputGenericTypes = formatText(", ", "T");
+#>
+        
+        /// <summary>
+        /// Partial Execution of target function
+        /// </summary>
+        /// <param name="action">function from target Func of type (<#= inputGenericTypes #>) -> TResult</param>
+<# for(int k = 1; k<i-j+1; k++) { #>
+        /// <param name="value<#= k #>">parameter <#= k #> of type T<#= k #></param>
+<# } #>
+        /// <returns>function of type (<#= resultMethodInputs #>) -> TResult (with <#= i - j #> less parameter)</returns>
+        [Pure]
+        public static Func<<#= resultGenericTypes #>, TResult> Partial<<#= inputGenericTypes #>, TResult>(
+            this Func<<#= inputGenericTypes #>, TResult> function, <#= partialFunctionInput #>) =>
+                (<#= partialMethodInputs #>) => function(<#= functionInput #>);
+<# } #>
+
+        #endregion
+<# } #>
+    }
+}

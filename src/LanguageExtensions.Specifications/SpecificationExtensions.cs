@@ -58,11 +58,8 @@ namespace LanguageExtensions.Specifications
         /// <returns></returns>
         public static Specification<TEntity> Any<TEntity>(this IEnumerable<Specification<TEntity>> specs) => new AnySpecification<TEntity>(specs);
 
+        internal static bool IsTrue<T>(this Specification<T> spec) => spec is TrueSpecification<T>;
+        internal static bool IsFalse<T>(this Specification<T> spec) => spec is FalseSpecification<T>;
     }
 
-    public static class SpecificationExtensionsExpressions
-    {
-        public static Specification<TEntity> ToSpecification<TEntity>(this Expression<Func<TEntity, bool>> predicate) 
-            => new PredicateSpecification<TEntity>(predicate);
-    }
 }

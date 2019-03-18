@@ -3,8 +3,17 @@ using System.Linq.Expressions;
 
 namespace LanguageExtensions.Specifications
 {
-    public abstract class Specification<T>
+    public abstract partial class Specification<T>
     {
+        #region Defaults
+
+        public static readonly Specification<T> True = new TrueSpecification<T>();
+        public static readonly Specification<T> False = new FalseSpecification<T>();
+
+        #endregion
+
+        #region core methods
+
         /// <summary>
         /// Checks if a certain candidate meets a given specification.
         /// </summary>
@@ -19,6 +28,10 @@ namespace LanguageExtensions.Specifications
         /// Expression that defines the specification.
         /// </summary>
         public abstract Expression<Func<T, bool>> ToExpression();
+
+        #endregion
+
+        #region Operators
 
         /// <summary>
         /// Allows to combine two query specifications using a logical AND operation.
@@ -71,11 +84,19 @@ namespace LanguageExtensions.Specifications
         /// <returns>New specification</returns>
         public static Specification<T> operator !=(Specification<T> spec, bool value) => value ? !spec : spec;
 
+        #endregion
+
+        #region Implicit operators
+
         /// <summary>
         /// Allows using Specification[T] in place of a lambda expression.
         /// </summary>
         /// <param name="spec"></param>
         public static implicit operator Expression<Func<T, bool>>(Specification<T> spec) => spec.ToExpression();
+
+        #endregion
+
+        #region Explicit operators
 
         /// <summary>
         /// Allows using Specification[T] in place of Func[T, bool].
@@ -83,6 +104,6 @@ namespace LanguageExtensions.Specifications
         /// <param name="spec"></param>
         public static explicit operator Func<T, bool>(Specification<T> spec) => spec.IsSatisfiedBy;
 
-        public static explicit operator Specification<T>(Expression<Func<T, bool>> predicate) => new PredicateSpecification<T>(predicate);
+        #endregion
     }
 }
