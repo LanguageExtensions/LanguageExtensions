@@ -72,14 +72,14 @@ namespace LanguageExtensions.DataAccess.InMemory
         #region Private helpers
 
         private TKey GenerateKey()
-        {
+        { 
             object returnVal;
             TKey currentMax = _data.Select(PrimaryKeySelector.Compile()).Max();
             switch (currentMax)
             {
-                case int intValue: returnVal = intValue++; break;
-                case long longValue: returnVal = longValue++; break;
-                case decimal decimalValue: returnVal = decimalValue++; break;
+                case int intValue: returnVal = ++intValue; break;
+                case long longValue: returnVal = ++longValue; break;
+                case decimal decimalValue: returnVal = ++decimalValue; break;
                 case Guid _:
                     returnVal = Guid.NewGuid();
                     break;
