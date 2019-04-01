@@ -13,7 +13,7 @@ if ($versionSuffix) {
 $publishPath
 
 $projectsToPack = @(
-    "$currentDir\src\LanguageExtensions.Specification\LanguageExtensions.Specification.csproj",
+    "$currentDir\src\LanguageExtensions.Specifications\LanguageExtensions.Specifications.csproj",
     "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.Abstractions\LanguageExtensions.DataAccess.Abstractions.csproj",
     "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.EntityFramework\LanguageExtensions.DataAccess.EntityFramework.csproj",
     "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.InMemory\LanguageExtensions.DataAccess.InMemory.csproj",
