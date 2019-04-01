@@ -9,8 +9,6 @@
     <RepositoryUrl>Github</RepositoryUrl>
     <PackageProjectUrl>https://github.com/LanguageExtensions/LanguageExtensions</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/LanguageExtensions/LanguageExtensions/blob/develop/LICENSE</PackageLicenseUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-rc-1</Version>
   </PropertyGroup>
 
 </Project>

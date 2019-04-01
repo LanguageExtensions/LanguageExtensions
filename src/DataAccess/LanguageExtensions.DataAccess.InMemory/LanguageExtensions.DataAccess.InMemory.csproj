@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>7.2</LangVersion>
+    <Authors>LanguageExtensions</Authors>
+    <Description>C# Specification pattern implementation.</Description>
+    <PackageReleaseNotes>C# Specification pattern implementation.</PackageReleaseNotes>
+    <RepositoryType>https://github.com/LanguageExtensions/LanguageExtensions</RepositoryType>
+    <RepositoryUrl>Github</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/LanguageExtensions/LanguageExtensions</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/LanguageExtensions/LanguageExtensions/blob/develop/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

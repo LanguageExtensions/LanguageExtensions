@@ -94,7 +94,8 @@ namespace LanguageExtensions.DataAccess.InMemory
     }
 
     public class InMemoryRepository<TEntity> : 
-        IFindRepository<TEntity>
+        IFindRepository<TEntity>,
+        IAggregateRepository<TEntity>
             where TEntity : class
     {
         #region protected fields
@@ -114,7 +115,24 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         #region IFindRepository Implementation
 
-        public Task<TEntity> FindAsync(Specification<TEntity> specification) => Task.FromResult(_data.FirstOrDefault(specification.IsSatisfiedBy));
+        public Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification) => Task.FromResult(_data.FirstOrDefault(specification.IsSatisfiedBy));
+        public Task<bool> AnyAsync(Specification<TEntity> specification) => Task.FromResult(_data.Any(specification.IsSatisfiedBy));
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) => _data.Where(specification.IsSatisfiedBy).ToList();
+
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(
+            Specification<TEntity> specification,
+            IQueryOptions<TEntity> queryOptions) 
+                => _data.AsQueryable().Where(specification).Apply(queryOptions).ToList();
+
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
+            => _data.AsQueryable().Apply(queryOptions).ToList();
+
+        #endregion
+
+        #region IAggregateRepository Implementation
+
+        public Task<long> Count() => Task.FromResult(_data.LongCount());
+        public Task<long> Count(Specification<TEntity> specification) => Task.FromResult(_data.Where(specification.IsSatisfiedBy).LongCount());
 
         #endregion
 

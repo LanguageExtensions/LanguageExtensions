@@ -19,8 +19,8 @@ namespace LanguageExtensions.DataAccess.IntegrationTests
         public async Task Should_be_able_to_find_using_expression(FindUserTestCaseData testCaseData)
         {
             var repository = GetFindRepository();
-            var resultFromExpression = await repository.FindAsync(testCaseData.Predicate).ConfigureAwait(false);
-            var resultFromSpecification = await repository.FindAsync(testCaseData.Predicate.ToSpecification()).ConfigureAwait(false);
+            var resultFromExpression = await repository.FirstOrDefaultAsync(testCaseData.Predicate).ConfigureAwait(false);
+            var resultFromSpecification = await repository.FirstOrDefaultAsync(testCaseData.Predicate.ToSpecification()).ConfigureAwait(false);
 
             testCaseData.Expectation.ToSpecification()
                 .IsSatisfiedBy(resultFromExpression)

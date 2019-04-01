@@ -95,8 +95,9 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         #endregion
     }
 
-    public class EntityFrameworkRepository<TEntity>
-        : IFindRepository<TEntity>
+    public class EntityFrameworkRepository<TEntity> : 
+        IFindRepository<TEntity>,
+        IAggregateRepository<TEntity>
             where TEntity : class
     {
         #region protected Fields
@@ -118,8 +119,29 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 
         #region IFindRepository Implementation
 
-        public async Task<TEntity> FindAsync(Specification<TEntity> specification)
+        public async Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification)
             => await _dbSet.FirstOrDefaultAsync(specification);
+
+        public async Task<bool> AnyAsync(Specification<TEntity> specification) 
+            => await _dbSet.AnyAsync(specification);
+
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) 
+            => await _dbSet.Where(specification).ToListAsync();
+
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(
+            Specification<TEntity> specification,
+            IQueryOptions<TEntity> queryOptions)
+                => await _dbSet.Where(specification).Apply(queryOptions).ToListAsync();
+
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
+            => await _dbSet.Apply(queryOptions).ToListAsync();
+
+        #endregion
+
+        #region IAggregateRepository Implementation
+
+        public async Task<long> Count() => await _dbSet.CountAsync();
+        public async Task<long> Count(Specification<TEntity> specification) => await _dbSet.CountAsync(specification);
 
         #endregion
 

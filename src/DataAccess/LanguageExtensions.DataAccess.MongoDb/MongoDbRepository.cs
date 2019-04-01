@@ -1,8 +1,10 @@
 ﻿using LanguageExtensions.DataAccess.Abstractions;
 using LanguageExtensions.Specifications;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -16,7 +18,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
         #region Constructor
 
         public MongoDbRepository(IMongoClient mongoClient, string dbName, Expression<Func<TEntity, TKey>> primaryKeySelector)
-            :base(mongoClient, dbName)
+            : base(mongoClient, dbName)
         {
             PrimaryKeySelector = primaryKeySelector;
         }
@@ -53,7 +55,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
             return this.GetPrimaryKey(entity);
         }
 
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities) 
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
             => await GetCollection().InsertManyAsync(entities);
 
         #endregion
@@ -69,8 +71,9 @@ namespace LanguageExtensions.DataAccess.MongoDb
         #endregion
     }
 
-    public class MongoDbRepository<TEntity>
-        : IFindRepository<TEntity>
+    public class MongoDbRepository<TEntity> : 
+        IFindRepository<TEntity>,
+        IAggregateRepository<TEntity>
             where TEntity : class
     {
         #region private fields
@@ -79,7 +82,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
         protected readonly string _collectionName;
 
         #endregion
-        
+
         #region Constructor
 
         public MongoDbRepository(IMongoClient mongoClient, string dbName)
@@ -99,19 +102,41 @@ namespace LanguageExtensions.DataAccess.MongoDb
         #region Private Helper methods
 
         protected IMongoCollection<TEntity> GetCollection() => _database.GetCollection<TEntity>(GetCollectionName());
+        private FilterDefinition<TEntity> GetFilter(Specification<TEntity> specification) => Builders<TEntity>.Filter.Where(specification);
 
         #endregion
 
         #region IFindRepository Implementation
 
-        public async Task<TEntity> FindAsync(Specification<TEntity> specification)
-        {
-            var predicate = Builders<TEntity>.Filter.Where(specification);
-            return await GetCollection().Find(predicate).FirstOrDefaultAsync();
-        }
+        public async Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification) 
+            => await GetCollection().Find(GetFilter(specification)).FirstOrDefaultAsync();
+
+        public async Task<bool> AnyAsync(Specification<TEntity> specification) 
+            => await GetCollection().Find(GetFilter(specification)).AnyAsync();
+
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) 
+            => await GetCollection().Find(GetFilter(specification)).ToListAsync();
+
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(
+            Specification<TEntity> specification,
+            IQueryOptions<TEntity> queryOptions) 
+            => await Task.Run(() => 
+                    GetCollection().AsQueryable()
+                    .Where(specification)
+                    .Apply(queryOptions).ToList());
+
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
+            => await Task.Run(() => GetCollection().AsQueryable().Apply(queryOptions).ToList());
 
         #endregion
 
+        #region IAggregateRepository Implementation
+
+        public async Task<long> Count() => await GetCollection().EstimatedDocumentCountAsync();
+        public async Task<long> Count(Specification<TEntity> specification) => await GetCollection().CountDocumentsAsync(GetFilter(specification));
+
+        #endregion
+        
         #region IDisposable
 
         public void Dispose()
