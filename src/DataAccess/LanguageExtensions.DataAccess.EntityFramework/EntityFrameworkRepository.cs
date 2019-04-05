@@ -120,21 +120,21 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         #region IFindRepository Implementation
 
         public async Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification)
-            => await _dbSet.FirstOrDefaultAsync(specification);
+            => await _dbSet.AsNoTracking().FirstOrDefaultAsync(specification);
 
         public async Task<bool> AnyAsync(Specification<TEntity> specification) 
-            => await _dbSet.AnyAsync(specification);
+            => await _dbSet.AsNoTracking().AnyAsync(specification);
 
         public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) 
-            => await _dbSet.Where(specification).ToListAsync();
+            => await _dbSet.AsNoTracking().Where(specification).ToListAsync();
 
         public async Task<IReadOnlyList<TEntity>> WhereAsync(
             Specification<TEntity> specification,
             IQueryOptions<TEntity> queryOptions)
-                => await _dbSet.Where(specification).Apply(queryOptions).ToListAsync();
+                => await _dbSet.AsNoTracking().Where(specification).Apply(queryOptions).ToListAsync();
 
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
-            => await _dbSet.Apply(queryOptions).ToListAsync();
+            => await _dbSet.AsNoTracking().Apply(queryOptions).ToListAsync();
 
         #endregion
 
