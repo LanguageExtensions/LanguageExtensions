@@ -1,11 +1,12 @@
-﻿using LanguageExtensions.Specifications;
+﻿using LanguageExtensions.DataAccess.Abstractions;
+using LanguageExtensions.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace LanguageExtensions.DataAccess.Abstractions
+namespace LanguageExtensions.DataAccess
 {
     public class QueryLimitOptions<TEntity>: IQueryOptions<TEntity>
     {

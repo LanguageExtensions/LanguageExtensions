@@ -117,7 +117,7 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         public Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification) => Task.FromResult(_data.FirstOrDefault(specification.IsSatisfiedBy));
         public Task<bool> AnyAsync(Specification<TEntity> specification) => Task.FromResult(_data.Any(specification.IsSatisfiedBy));
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) => _data.Where(specification.IsSatisfiedBy).ToList();
+        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) =>  _data.Where(specification.IsSatisfiedBy).ToList();
 
         public async Task<IReadOnlyList<TEntity>> WhereAsync(
             Specification<TEntity> specification,

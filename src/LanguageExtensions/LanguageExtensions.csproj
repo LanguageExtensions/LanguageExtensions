@@ -1,17 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="DataAccess\**" />
-    <Compile Remove="FunctionalExtensions\**" />
-    <EmbeddedResource Remove="DataAccess\**" />
-    <EmbeddedResource Remove="FunctionalExtensions\**" />
-    <None Remove="DataAccess\**" />
-    <None Remove="FunctionalExtensions\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
@@ -99,10 +90,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PartialFuncExtensions.Right.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CommonTemplateIncludes\" />
   </ItemGroup>
 
 </Project>

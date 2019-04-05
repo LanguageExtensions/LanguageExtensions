@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <DataAccessBaseVersion>1.1</DataAccessBaseVersion>
+
+    <DataAccessAbstractionPatchVersion>0</DataAccessAbstractionPatchVersion>
+    <DataAccessExtensionsPatchVersion>0</DataAccessExtensionsPatchVersion>
+    <DataAccessEntityFrameworkPatchVersion>0</DataAccessEntityFrameworkPatchVersion>
+    <DataAccessInMemoryPatchVersion>0</DataAccessInMemoryPatchVersion>
+    <DataAccessMongoDbPatchVersion>0</DataAccessMongoDbPatchVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SpecificationBaseVersion>1.0</SpecificationBaseVersion>
+    <SpecificationPatchVersion>0</SpecificationPatchVersion>
+  </PropertyGroup>
+
+</Project>
