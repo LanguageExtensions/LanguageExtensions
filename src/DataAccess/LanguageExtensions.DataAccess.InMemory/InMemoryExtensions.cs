@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.DataAccess.Abstractions;
+﻿using LanguageExtensions.DataAccess;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;

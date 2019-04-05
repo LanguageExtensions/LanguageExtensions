@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.DataAccess.Abstractions;
+﻿using LanguageExtensions.DataAccess;
 using LanguageExtensions.Specifications;
 using System;
 using System.Collections.Generic;

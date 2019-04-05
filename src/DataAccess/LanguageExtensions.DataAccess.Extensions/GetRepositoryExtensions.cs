@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.DataAccess.Abstractions;
+﻿using LanguageExtensions.DataAccess;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace LanguageExtensions.DataAccess.Abstractions
+namespace LanguageExtensions.DataAccess
 {
     public interface IUpdateRepository<TEntity, TKey> :
         IRepositoryWithKey<TEntity, TKey>,

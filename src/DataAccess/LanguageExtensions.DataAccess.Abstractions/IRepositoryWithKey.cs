@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.DataAccess.Abstractions.Specifications;
+﻿using LanguageExtensions.DataAccess.Specifications;
 using LanguageExtensions.Specifications;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace LanguageExtensions.DataAccess.Abstractions
+namespace LanguageExtensions.DataAccess
 {
     public interface IRepositoryWithKey<TEntity, TKey>
         where TEntity : class

@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using LanguageExtensions.DataAccess.Abstractions;
+using LanguageExtensions.DataAccess;
 using LanguageExtensions.DataAccess.IntegrationTests.Models;
 using NUnit.Framework;
 using System.Collections.Generic;

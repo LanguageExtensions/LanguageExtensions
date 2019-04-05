@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <DataAccessBaseVersion>1.1</DataAccessBaseVersion>
+    <DataAccessBaseVersion>1.2</DataAccessBaseVersion>
 
     <DataAccessAbstractionPatchVersion>0</DataAccessAbstractionPatchVersion>
     <DataAccessExtensionsPatchVersion>0</DataAccessExtensionsPatchVersion>

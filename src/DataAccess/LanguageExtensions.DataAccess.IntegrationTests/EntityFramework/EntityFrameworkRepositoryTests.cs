@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.DataAccess.Abstractions;
+﻿using LanguageExtensions.DataAccess;
 using LanguageExtensions.DataAccess.EntityFramework;
 using LanguageExtensions.DataAccess.IntegrationTests.EntityFramework.DataContext;
 using LanguageExtensions.DataAccess.IntegrationTests.Models;

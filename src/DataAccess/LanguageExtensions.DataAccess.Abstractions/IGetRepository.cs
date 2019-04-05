@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageExtensions.DataAccess.Abstractions
+namespace LanguageExtensions.DataAccess
 {
     public interface IGetRepository<TEntity, TKey> : IDisposable
         where TEntity : class

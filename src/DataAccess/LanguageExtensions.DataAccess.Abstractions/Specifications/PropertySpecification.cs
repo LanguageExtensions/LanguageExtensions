@@ -3,7 +3,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace LanguageExtensions.DataAccess.Abstractions.Specifications
+namespace LanguageExtensions.DataAccess.Specifications
 {
     internal class PropertySpecification<TEntity, TKey> : Specification<TEntity>
     {

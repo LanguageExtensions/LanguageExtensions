@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace LanguageExtensions.DataAccess.Abstractions
+namespace LanguageExtensions.DataAccess
 {
     public interface IQueryOptions<TEntity>
     {

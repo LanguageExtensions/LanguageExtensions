@@ -1,4 +1,4 @@
-﻿using LanguageExtensions.DataAccess.Abstractions;
+﻿using LanguageExtensions.DataAccess;
 using LanguageExtensions.DataAccess.IntegrationTests.Models;
 using LanguageExtensions.DataAccess.MongoDb;
 using MongoDB.Driver;

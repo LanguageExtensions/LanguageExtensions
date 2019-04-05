@@ -1,7 +1,8 @@
-﻿using System;
+﻿using LanguageExtensions.Specifications;
+using System;
 using System.Linq.Expressions;
 
-namespace LanguageExtensions.Specifications
+namespace LanguageExtensions.DataAccess.Specifications
 {
     internal class PredicateSpecification<T> : Specification<T>
     {

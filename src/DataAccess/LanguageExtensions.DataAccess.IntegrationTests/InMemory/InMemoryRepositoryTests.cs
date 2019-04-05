@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LanguageExtensions.DataAccess.Abstractions;
+using LanguageExtensions.DataAccess;
 using LanguageExtensions.DataAccess.InMemory;
 using LanguageExtensions.DataAccess.IntegrationTests.Models;
 using NUnit.Framework;

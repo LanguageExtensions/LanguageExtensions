@@ -1,4 +1,4 @@
-﻿namespace LanguageExtensions.DataAccess.Abstractions
+﻿namespace LanguageExtensions.DataAccess
 {
     public interface ICurdRepository<TEntity, TKey>: 
         IFindRepository<TEntity>, 
