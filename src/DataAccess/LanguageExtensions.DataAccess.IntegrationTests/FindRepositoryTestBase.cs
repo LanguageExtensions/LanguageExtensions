@@ -7,7 +7,7 @@ using System.Collections;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using LanguageExtensions.Specifications;
+using LanguageExtensions.DataAccess.Specifications;
 
 namespace LanguageExtensions.DataAccess.IntegrationTests
 {

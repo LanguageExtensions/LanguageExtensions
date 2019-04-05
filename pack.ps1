@@ -13,12 +13,7 @@ if ($versionSuffix) {
 }
 
 $projectsToPack = @(
-    "$currentDir\src\LanguageExtensions.Specifications\LanguageExtensions.Specifications.csproj",
-    "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.Abstractions\LanguageExtensions.DataAccess.Abstractions.csproj",
-    "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.Extensions\LanguageExtensions.DataAccess.Extensions.csproj",
-    "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.EntityFramework\LanguageExtensions.DataAccess.EntityFramework.csproj",
-    "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.InMemory\LanguageExtensions.DataAccess.InMemory.csproj",
-    "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.MongoDb\LanguageExtensions.DataAccess.MongoDb.csproj"
+    "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.Extensions\LanguageExtensions.DataAccess.Extensions.csproj"
 )
 
 foreach ($project in $projectsToPack) {
