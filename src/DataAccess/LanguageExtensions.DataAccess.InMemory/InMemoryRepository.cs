@@ -117,15 +117,22 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         public Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification) => Task.FromResult(_data.FirstOrDefault(specification.IsSatisfiedBy));
         public Task<bool> AnyAsync(Specification<TEntity> specification) => Task.FromResult(_data.Any(specification.IsSatisfiedBy));
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) =>  _data.Where(specification.IsSatisfiedBy).ToList();
 
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(
+        public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
             Specification<TEntity> specification,
-            IQueryOptions<TEntity> queryOptions) 
-                => _data.AsQueryable().Where(specification).Apply(queryOptions).ToList();
+            IQueryOptions<TEntity> queryOptions,
+            Expression<Func<TEntity, TResult>> selector) 
+                => _data.AsQueryable()
+                    .Where(specification)
+                    .Apply(queryOptions)
+                    .Select(selector)
+                    .ToList();
+
 
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
-            => _data.AsQueryable().Apply(queryOptions).ToList();
+                => _data.AsQueryable()
+                    .Apply(queryOptions)
+                    .ToList();
 
         #endregion
 

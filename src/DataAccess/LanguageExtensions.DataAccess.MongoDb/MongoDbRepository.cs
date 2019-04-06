@@ -114,16 +114,15 @@ namespace LanguageExtensions.DataAccess.MongoDb
         public async Task<bool> AnyAsync(Specification<TEntity> specification) 
             => await GetCollection().Find(GetFilter(specification)).AnyAsync();
 
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) 
-            => await GetCollection().Find(GetFilter(specification)).ToListAsync();
-
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(
+        public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
             Specification<TEntity> specification,
-            IQueryOptions<TEntity> queryOptions) 
-            => await Task.Run(() => 
+            IQueryOptions<TEntity> queryOptions,
+            Expression<Func<TEntity, TResult>> selector)
+                => await Task.Run(() => 
                     GetCollection().AsQueryable()
                     .Where(specification)
-                    .Apply(queryOptions).ToList());
+                    .Apply(queryOptions)
+                    .Select(selector).ToList());
 
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
             => await Task.Run(() => GetCollection().AsQueryable().Apply(queryOptions).ToList());

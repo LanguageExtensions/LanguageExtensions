@@ -11,8 +11,9 @@ namespace LanguageExtensions.DataAccess
     {
         Task<bool> AnyAsync(Specification<TEntity> specification);
         Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification);
-        Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification);
-        Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification, IQueryOptions<TEntity> queryOptions);
+
+        Task<IReadOnlyList<TResult>> WhereAsync<TResult>(Specification<TEntity> specification, IQueryOptions<TEntity> queryOptions, Expression<Func<TEntity, TResult>> selector);
+
         Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions);
     }
 }

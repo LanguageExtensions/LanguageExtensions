@@ -125,13 +125,11 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         public async Task<bool> AnyAsync(Specification<TEntity> specification) 
             => await _dbSet.AsNoTracking().AnyAsync(specification);
 
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(Specification<TEntity> specification) 
-            => await _dbSet.AsNoTracking().Where(specification).ToListAsync();
-
-        public async Task<IReadOnlyList<TEntity>> WhereAsync(
-            Specification<TEntity> specification,
-            IQueryOptions<TEntity> queryOptions)
-                => await _dbSet.AsNoTracking().Where(specification).Apply(queryOptions).ToListAsync();
+        public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
+            Specification<TEntity> specification, 
+            IQueryOptions<TEntity> queryOptions,
+            Expression<Func<TEntity, TResult>> selector)
+                => await _dbSet.AsNoTracking().Where(specification).Apply(queryOptions).Select(selector).ToListAsync();
 
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
             => await _dbSet.AsNoTracking().Apply(queryOptions).ToListAsync();
