@@ -10,6 +10,6 @@ namespace LanguageExtensions.Specifications
 
     internal sealed class FalseSpecification<T> : Specification<T>
     {
-        public override Expression<Func<T, bool>> ToExpression() => x => true;
+        public override Expression<Func<T, bool>> ToExpression() => x => false;
     }
 }
