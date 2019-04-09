@@ -12,8 +12,6 @@ namespace LanguageExtensions.Specifications
         internal AllSpecification(IEnumerable<Specification<T>> specs) => _specs = specs ?? throw new ArgumentNullException("specs");
 
         public override Expression<Func<T, bool>> ToExpression()
-            => _specs.Any(s => s.IsFalse())
-                ? False
-                : _specs.Aggregate((s1, s2) => s1.And(s2)).ToExpression();
+            => _specs.Aggregate((s1, s2) => s1.And(s2)).ToExpression();
     }
 }

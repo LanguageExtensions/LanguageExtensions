@@ -15,8 +15,6 @@ namespace LanguageExtensions.Specifications
         }
 
         public override Expression<Func<T, bool>> ToExpression()
-            => _left.IsTrue() || _right.IsTrue()
-                ? True
-                : _left.ToExpression().Or(_right.ToExpression());
+            => _left.ToExpression().Or(_right.ToExpression());
     }
 }

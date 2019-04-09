@@ -10,12 +10,7 @@ namespace LanguageExtensions.Specifications
         internal NotSpecification(Specification<T> inner)
             => _inner = inner ?? throw new ArgumentNullException("inner");
 
-        public override Expression<Func<T, bool>> ToExpression()
-        {
-            if (_inner.IsTrue()) return False;
-            if (_inner.IsFalse()) return True;
-
-            return _inner.ToExpression().Not();
-        }
+        public override Expression<Func<T, bool>> ToExpression() 
+            => _inner.ToExpression().Not();
     }
 }

@@ -36,17 +36,17 @@ namespace LanguageExtensions.Specifications
         /// <summary>
         /// Allows to combine two query specifications using a logical AND operation.
         /// </summary>
-        public static Specification<T> operator &(Specification<T> spec1, Specification<T> spec2) => new AndSpecification<T>(spec1, spec2);
+        public static Specification<T> operator &(Specification<T> spec1, Specification<T> spec2) => spec1.And(spec2);
 
         /// <summary>
         /// Allows to combine two query specifications using a logical OR operation.
         /// </summary>
-        public static Specification<T> operator |(Specification<T> spec1, Specification<T> spec2) => new OrSpecification<T>(spec1, spec2);
+        public static Specification<T> operator |(Specification<T> spec1, Specification<T> spec2) => spec1.Or(spec2);
 
         /// <summary>
         /// Negates the given specification.
         /// </summary>
-        public static Specification<T> operator !(Specification<T> spec) => new NotSpecification<T>(spec);
+        public static Specification<T> operator !(Specification<T> spec) => spec.Not();
 
         /// <summary>
         /// Combines a specification with a boolean value. 
@@ -55,7 +55,7 @@ namespace LanguageExtensions.Specifications
         /// <param name="value">Boolean value</param>
         /// <param name="spec">Specification</param>
         /// <returns>New specification</returns>
-        public static Specification<T> operator ==(bool value, Specification<T> spec) => value ? spec : !spec;
+        public static Specification<T> operator ==(bool value, Specification<T> spec) => value ? spec : spec.Not();
 
         /// <summary>
         /// Combines a specification with a boolean value. 
@@ -64,7 +64,7 @@ namespace LanguageExtensions.Specifications
         /// <param name="value">Boolean value</param>
         /// <param name="spec">Specification</param>
         /// <returns>New specification</returns>
-        public static Specification<T> operator ==(Specification<T> spec, bool value) => value ? spec : !spec;
+        public static Specification<T> operator ==(Specification<T> spec, bool value) => value ? spec : spec.Not();
 
         /// <summary>
         /// Combines a specification with a boolean value. 
@@ -73,7 +73,7 @@ namespace LanguageExtensions.Specifications
         /// <param name="value">Boolean value</param>
         /// <param name="spec">Specification</param>
         /// <returns>New specification</returns>
-        public static Specification<T> operator !=(bool value, Specification<T> spec) => value ? !spec : spec;
+        public static Specification<T> operator !=(bool value, Specification<T> spec) => value ? spec.Not() : spec;
 
         /// <summary>
         /// Combines a specification with a boolean value. 
@@ -82,7 +82,7 @@ namespace LanguageExtensions.Specifications
         /// <param name="value">Boolean value</param>
         /// <param name="spec">Specification</param>
         /// <returns>New specification</returns>
-        public static Specification<T> operator !=(Specification<T> spec, bool value) => value ? !spec : spec;
+        public static Specification<T> operator !=(Specification<T> spec, bool value) => value ? spec.Not() : spec;
 
         #endregion
 

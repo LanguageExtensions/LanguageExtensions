@@ -20,6 +20,23 @@ namespace LanguageExtensions.Tests.Specifications
             public override Expression<Func<Drink, bool>> ToExpression() => d => d.With.Any(w => w.ToLower() == "ice");
         }
 
+        internal class OldSpec : Specification<Drink>
+        {
+            private readonly int _years;
+
+            private OldSpec(int years) => _years = years;
+
+            public override Expression<Func<Drink, bool>> ToExpression() 
+                => d => (d.ManufacturedOn - DateTime.Now) > TimeSpan.FromDays(365 * _years);
+
+            public static Specification<Drink> Than(int years)
+            {
+                if (years == 0) return True;
+                if (years < 0) return False;
+                return new OldSpec(years);
+            }
+        }
+
         [Test]
         public void WhiskeyAndCold()
         {
@@ -34,6 +51,29 @@ namespace LanguageExtensions.Tests.Specifications
             coldWhiskeySpec.IsSatisfiedBy(Drink.ColdWhiskey()).Should().BeTrue();
             coldWhiskeySpec.IsSatisfiedBy(Drink.AppleJuice()).Should().BeFalse();
         }
+
+        [Test]
+        public void Spoecification_true_should_equate_with_trueSpecificaiotn()
+        {
+            var olderThan0Years = OldSpec.Than(0);
+            var olderThan5Years = OldSpec.Than(5);
+            var olderThanNegativeYears = OldSpec.Than(-5);
+
+            olderThan0Years.IsTrue().Should().BeTrue();
+            (!olderThan0Years).IsFalse().Should().BeTrue();
+            olderThan0Years.Not().IsFalse().Should().BeTrue();
+
+            olderThanNegativeYears.IsFalse().Should().BeTrue();
+            (!olderThanNegativeYears).IsTrue().Should().BeTrue();
+            olderThanNegativeYears.Not().IsTrue().Should().BeTrue();
+
+            olderThan0Years.Or(olderThan5Years).IsTrue().Should().BeTrue();
+            (olderThan0Years | olderThan5Years).IsTrue().Should().BeTrue();
+
+            olderThanNegativeYears.And(olderThan5Years).IsTrue().Should().BeFalse();
+            (olderThanNegativeYears & olderThan5Years).IsTrue().Should().BeFalse();
+        }
+
         [Test]
         public void WhiskeyAndCold_using_operator()
         {
@@ -51,8 +91,6 @@ namespace LanguageExtensions.Tests.Specifications
             coldWhiskeySpec.IsSatisfiedBy(appleJuice).Should().BeFalse();
         }
     }
-
-
 
     public class Drink
     {
