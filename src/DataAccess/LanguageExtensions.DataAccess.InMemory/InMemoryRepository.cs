@@ -10,7 +10,8 @@ namespace LanguageExtensions.DataAccess.InMemory
 {
     public class InMemoryRepository<TEntity, TKey> :
         InMemoryRepository<TEntity>,
-        ICurdRepository<TEntity, TKey>
+        ICommandRepository<TEntity, TKey>,
+        IQueryRepository<TEntity, TKey>
             where TEntity : class
     {
         #region Constructor
@@ -93,9 +94,8 @@ namespace LanguageExtensions.DataAccess.InMemory
         #endregion
     }
 
-    public class InMemoryRepository<TEntity> : 
-        IFindRepository<TEntity>,
-        IAggregateRepository<TEntity>
+    public class InMemoryRepository<TEntity> :
+        IQueryRepository<TEntity>
             where TEntity : class
     {
         #region protected fields

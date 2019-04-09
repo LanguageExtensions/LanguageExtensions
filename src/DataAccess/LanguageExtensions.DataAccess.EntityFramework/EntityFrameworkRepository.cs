@@ -1,5 +1,4 @@
-﻿using LanguageExtensions.DataAccess;
-using LanguageExtensions.Specifications;
+﻿using LanguageExtensions.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,8 +10,8 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 {
     public class EntityFrameworkRepository<TEntity, TKey> :
         EntityFrameworkRepository<TEntity>,
-        IInsertRepository<TEntity, TKey>,
-        IGetRepository<TEntity, TKey>,
+        ICommandRepository<TEntity, TKey>,
+        IQueryRepository<TEntity, TKey>,
         IRepositoryWithKey<TEntity, TKey>
             where TEntity : class
     {
@@ -95,9 +94,8 @@ namespace LanguageExtensions.DataAccess.EntityFramework
         #endregion
     }
 
-    public class EntityFrameworkRepository<TEntity> : 
-        IFindRepository<TEntity>,
-        IAggregateRepository<TEntity>
+    public class EntityFrameworkRepository<TEntity> :
+        IQueryRepository<TEntity>
             where TEntity : class
     {
         #region protected Fields

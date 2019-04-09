@@ -1,5 +1,4 @@
-﻿using LanguageExtensions.DataAccess;
-using LanguageExtensions.Specifications;
+﻿using LanguageExtensions.Specifications;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -12,7 +11,8 @@ namespace LanguageExtensions.DataAccess.MongoDb
 {
     public class MongoDbRepository<TEntity, TKey> :
         MongoDbRepository<TEntity>,
-        ICurdRepository<TEntity, TKey>
+        ICommandRepository<TEntity, TKey>,
+        IQueryRepository<TEntity, TKey>
             where TEntity : class
     {
         #region Constructor
@@ -72,8 +72,7 @@ namespace LanguageExtensions.DataAccess.MongoDb
     }
 
     public class MongoDbRepository<TEntity> : 
-        IFindRepository<TEntity>,
-        IAggregateRepository<TEntity>
+        IQueryRepository<TEntity>
             where TEntity : class
     {
         #region private fields
