@@ -7,11 +7,6 @@ $publishPath = $currentDir + "\publish"
 
 Remove-Item $publishPath -Recurse -ErrorAction Ignore
 
-$suffixParam = ""
-if ($versionSuffix) {
-    $suffixParam = "--version-suffix '$versionSuffix'"
-}
-
 $projectsToPack = @(
     "$currentDir\src\LanguageExtensions.Specifications\LanguageExtensions.Specifications.csproj",
     "$currentDir\src\DataAccess\LanguageExtensions.DataAccess.Abstractions\LanguageExtensions.DataAccess.Abstractions.csproj",
