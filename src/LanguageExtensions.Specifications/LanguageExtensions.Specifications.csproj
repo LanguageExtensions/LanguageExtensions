@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>$(SpecificationBaseVersion).$(SpecificationPatchVersion)</VersionPrefix>
+    <VersionSuffix Condition="$(SpecificationSuffix)!=''">$(SpecificationSuffix)</VersionSuffix>
   </PropertyGroup>
 
 </Project>

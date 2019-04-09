@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>$(DataAccessBaseVersion).$(DataAccessAbstractionPatchVersion)</VersionPrefix>
+    <VersionSuffix Condition="$(DataAccessAbstractionSuffix)!=''">$(DataAccessAbstractionSuffix)</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>

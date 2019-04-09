@@ -1,5 +1,5 @@
 param (
-    [Parameter(Mandatory = $true)][AllowEmptyString()][string]$versionSuffix
+    [Parameter(Mandatory = $false)][AllowEmptyString()][string]$versionSuffix
 )
 
 $currentDir = $(get-location).Path;
@@ -9,7 +9,7 @@ Remove-Item $publishPath -Recurse -ErrorAction Ignore
 
 $suffixParam = ""
 if ($versionSuffix) {
-    $suffixParam = "--version-suffix $versionSuffix"
+    $suffixParam = "--version-suffix '$versionSuffix'"
 }
 
 $projectsToPack = @(
@@ -22,5 +22,10 @@ $projectsToPack = @(
 )
 
 foreach ($project in $projectsToPack) {
-    dotnet pack $project -o $publishPath $suffixParam
+    if ($versionSuffix) {
+        dotnet pack $project -o $publishPath --version-suffix $versionSuffix
+    }
+    else {
+        dotnet pack $project -o $publishPath
+    }
 }

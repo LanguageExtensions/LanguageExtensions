@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>$(DataAccessBaseVersion).$(DataAccessInMemoryPatchVersion)</VersionPrefix>
+    <VersionSuffix Condition="$(DataAccessInMemorySuffix)!=''">$(DataAccessInMemorySuffix)</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>

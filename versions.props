@@ -1,17 +1,27 @@
 <Project>
   <PropertyGroup>
-    <DataAccessBaseVersion>1.2</DataAccessBaseVersion>
+    <DataAccessBaseVersion>1.4</DataAccessBaseVersion>
 
     <DataAccessAbstractionPatchVersion>0</DataAccessAbstractionPatchVersion>
+    <DataAccessAbstractionSuffix>rc1</DataAccessAbstractionSuffix>
+
     <DataAccessExtensionsPatchVersion>0</DataAccessExtensionsPatchVersion>
+    <DataAccessExtensionsSuffix>rc1</DataAccessExtensionsSuffix>
+
     <DataAccessEntityFrameworkPatchVersion>0</DataAccessEntityFrameworkPatchVersion>
+    <DataAccessEntityFrameworkSuffix>rc1</DataAccessEntityFrameworkSuffix>
+
     <DataAccessInMemoryPatchVersion>0</DataAccessInMemoryPatchVersion>
+    <DataAccessInMemorySuffix>rc1</DataAccessInMemorySuffix>
+
     <DataAccessMongoDbPatchVersion>0</DataAccessMongoDbPatchVersion>
+    <DataAccessMongoDbSuffix>rc1</DataAccessMongoDbSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
-    <SpecificationBaseVersion>1.0</SpecificationBaseVersion>
+    <SpecificationBaseVersion>1.2</SpecificationBaseVersion>
     <SpecificationPatchVersion>0</SpecificationPatchVersion>
+    <SpecificationSuffix>rc1</SpecificationSuffix>
   </PropertyGroup>
 
 </Project>

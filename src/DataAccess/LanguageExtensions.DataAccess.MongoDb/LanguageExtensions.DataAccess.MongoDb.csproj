@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>$(DataAccessBaseVersion).$(DataAccessMongoDbPatchVersion)</VersionPrefix>
+    <VersionSuffix Condition="$(DataAccessMongoDbSuffix)!=''">$(DataAccessMongoDbSuffix)</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
