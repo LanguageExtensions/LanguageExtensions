@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LanguageExtensions.AspNetCore\LanguageExtensions.AspNetCore.csproj" />
     <ProjectReference Include="..\LanguageExtensions.Specifications\LanguageExtensions.Specifications.csproj" />
   </ItemGroup>
 

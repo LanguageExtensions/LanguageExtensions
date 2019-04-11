@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace LanguageExtensions.Tests.Specifications
+namespace LanguageExtensions.Specifications.Tests
 {
     public class SpecificationTest
     {
