@@ -115,23 +115,40 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         #region IFindRepository Implementation
 
-        public Task<bool> AnyAsync(Specification<TEntity> specification) => Task.FromResult(_data.Any(specification.IsSatisfiedBy));
+        public async Task<bool> AnyAsync(Specification<TEntity> specification)
+        {
+            if (specification.IsTrue()) return true;
+            if (specification.IsFalse()) return false;
+
+            return await Task.FromResult(_data.Any(specification.IsSatisfiedBy));
+        }
 
         public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
             Specification<TEntity> specification,
             IQueryOptions<TEntity> queryOptions,
-            Expression<Func<TEntity, TResult>> selector) 
-                => _data.AsQueryable()
-                    .Where(specification)
+            Expression<Func<TEntity, TResult>> selector)
+        {
+            if (specification.IsFalse()) return Enumerable.Empty<TResult>().ToList();
+
+            IQueryable<TEntity> filteredResults = specification.IsTrue() ? _data.AsQueryable() : _data.AsQueryable().Where(specification);
+
+            return filteredResults
                     .Apply(queryOptions)
                     .Select(selector)
                     .ToList();
+        }
 
         #endregion
 
         #region IAggregateRepository Implementation
 
-        public Task<long> CountAsync(Specification<TEntity> specification) => Task.FromResult(_data.Where(specification.IsSatisfiedBy).LongCount());
+        public async Task<long> CountAsync(Specification<TEntity> specification)
+        {
+            if (specification.IsTrue()) return await Task.FromResult(_data.Count);
+            if (specification.IsFalse()) return 0;
+
+            return _data.Where(specification.IsSatisfiedBy).LongCount();
+        }
 
         #endregion
 

@@ -107,27 +107,43 @@ namespace LanguageExtensions.DataAccess.MongoDb
 
         #region IFindRepository Implementation
 
-        public async Task<bool> AnyAsync(Specification<TEntity> specification) 
-            => await GetCollection().Find(GetFilter(specification)).AnyAsync();
+        public async Task<bool> AnyAsync(Specification<TEntity> specification)
+        {
+            if (specification.IsTrue()) return true;
+            if (specification.IsFalse()) return false;
+
+            return await GetCollection().Find(GetFilter(specification)).AnyAsync();
+        }
 
         public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
             Specification<TEntity> specification,
             IQueryOptions<TEntity> queryOptions,
             Expression<Func<TEntity, TResult>> selector)
-                => await Task.Run(() => 
-                    GetCollection().AsQueryable()
-                    .Where(specification)
-                    .Apply(queryOptions)
-                    .Select(selector).ToList());
+        {
+            if (specification.IsFalse()) return Enumerable.Empty<TResult>().ToList();
+
+            IQueryable<TEntity> filteredResults = specification.IsTrue() ? GetCollection().AsQueryable() : GetCollection().AsQueryable().Where(specification);
+
+            return await Task.Run(() =>
+                                filteredResults
+                                .Apply(queryOptions)
+                                .Select(selector).ToList());
+        }
 
         #endregion
 
         #region IAggregateRepository Implementation
 
-        public async Task<long> CountAsync(Specification<TEntity> specification) => await GetCollection().CountDocumentsAsync(GetFilter(specification));
+        public async Task<long> CountAsync(Specification<TEntity> specification)
+        {
+            if (specification.IsTrue()) return await GetCollection().EstimatedDocumentCountAsync();
+            if (specification.IsFalse()) return 0;
+
+            return await GetCollection().CountDocumentsAsync(GetFilter(specification));
+        }
 
         #endregion
-        
+
         #region IDisposable
 
         public void Dispose()

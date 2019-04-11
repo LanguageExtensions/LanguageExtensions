@@ -117,20 +117,39 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 
         #region IFindRepository Implementation
 
-        public async Task<bool> AnyAsync(Specification<TEntity> specification) 
-            => await _dbSet.AsNoTracking().AnyAsync(specification);
+        public async Task<bool> AnyAsync(Specification<TEntity> specification)
+        {
+            if (specification.IsTrue()) return true;
+            if (specification.IsFalse()) return false;
+
+            return await _dbSet.AsNoTracking().AnyAsync(specification);
+        }
 
         public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
-            Specification<TEntity> specification, 
+            Specification<TEntity> specification,
             IQueryOptions<TEntity> queryOptions,
             Expression<Func<TEntity, TResult>> selector)
-                => await _dbSet.AsNoTracking().Where(specification).Apply(queryOptions).Select(selector).ToListAsync();
+        {
+            if (specification.IsFalse()) return Enumerable.Empty<TResult>().ToList();
+
+            IQueryable<TEntity> filteredResults = specification.IsTrue() ? _dbSet.AsNoTracking() : _dbSet.AsNoTracking().Where(specification);
+
+            return await filteredResults
+                .Apply(queryOptions)
+                .Select(selector).ToListAsync();
+        }
 
         #endregion
 
         #region IAggregateRepository Implementation
 
-        public async Task<long> CountAsync(Specification<TEntity> specification) => await _dbSet.CountAsync(specification);
+        public async Task<long> CountAsync(Specification<TEntity> specification)
+        {
+            if (specification.IsTrue()) return await _dbSet.LongCountAsync();
+            if (specification.IsFalse()) return 0;
+
+            return await _dbSet.CountAsync(specification);
+        }
 
         #endregion
 
