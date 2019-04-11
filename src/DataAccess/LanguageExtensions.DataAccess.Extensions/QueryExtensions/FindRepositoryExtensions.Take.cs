@@ -24,7 +24,7 @@ namespace LanguageExtensions.DataAccess
             Expression<Func<TEntity, TResult>> selector,
             int count)
                 where TEntity : class
-                    => repository.WhereAsync(predicate.ToSpecification(), selector, new QueryLimitOptions<TEntity>(count));
+                    => repository.WhereAsync(predicate.ToSpecification(), new QueryLimitOptions<TEntity>(count), selector);
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace LanguageExtensions.DataAccess
             Expression<Func<TEntity, TResult>> selector,
             int count)
                 where TEntity : class
-                    => repository.WhereAsync(specification, selector, new QueryLimitOptions<TEntity>(count));
+                    => repository.WhereAsync(specification, new QueryLimitOptions<TEntity>(count), selector);
 
         #endregion
 

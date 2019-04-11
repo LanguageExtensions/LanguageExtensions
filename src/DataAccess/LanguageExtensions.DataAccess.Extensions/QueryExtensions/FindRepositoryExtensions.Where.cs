@@ -10,7 +10,7 @@ namespace LanguageExtensions.DataAccess
 {
     public static class FindRepositoryExtensions_Where
     {
-        #region Specification
+        #region Expression
 
         /// <summary>
         /// Expression based where execution
@@ -76,8 +76,8 @@ namespace LanguageExtensions.DataAccess
         public static Task<IReadOnlyList<TResult>> WhereAsync<TEntity, TResult>(
             this IFindRepository<TEntity> repository,
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, TResult>> selector,
-            IQueryOptions<TEntity> queryOptions)
+            IQueryOptions<TEntity> queryOptions,
+            Expression<Func<TEntity, TResult>> selector)
                 where TEntity : class
                     => repository.WhereAsync(predicate.ToSpecification(), queryOptions, selector);
 
@@ -106,7 +106,7 @@ namespace LanguageExtensions.DataAccess
 
         #endregion
 
-        #region Expression
+        #region Specification
 
         public static Task<IReadOnlyList<TEntity>> WhereAsync<TEntity>(
             this IFindRepository<TEntity> repository,
