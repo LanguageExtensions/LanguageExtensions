@@ -8,29 +8,9 @@ using System.Threading.Tasks;
 
 namespace LanguageExtensions.DataAccess
 {
-    public static class FindRepositoryExpressionExtensions
+    public static class FindRepositoryExtensions_Where
     {
-        #region Any
-
-        public static Task<bool> AnyAsync<TEntity>(
-            this IFindRepository<TEntity> repository,
-            Expression<Func<TEntity, bool>> predicate)
-                where TEntity : class
-                    => repository.AnyAsync(predicate.ToSpecification());
-
-        #endregion
-
-        #region FirstOrDefault
-
-        public static Task<TEntity> FirstOrDefaultAsync<TEntity>(
-            this IFindRepository<TEntity> repository,
-            Expression<Func<TEntity, bool>> predicate)
-                where TEntity : class
-                    => repository.FirstOrDefaultAsync(predicate.ToSpecification());
-
-        #endregion
-
-        #region Where
+        #region Specification
 
         /// <summary>
         /// Expression based where execution
@@ -125,12 +105,11 @@ namespace LanguageExtensions.DataAccess
                     => repository.WhereAsync(predicate.ToSpecification(), queryOptions);
 
         #endregion
-    }
 
-    public static class FindRepositoryExtensions
-    {
+        #region Expression
+
         public static Task<IReadOnlyList<TEntity>> WhereAsync<TEntity>(
-            this IFindRepository<TEntity> repository, 
+            this IFindRepository<TEntity> repository,
             Specification<TEntity> specification)
                 where TEntity : class
                     => repository.WhereAsync(specification, new NoneQueryOptions<TEntity>(), e => e);
@@ -149,9 +128,6 @@ namespace LanguageExtensions.DataAccess
                 where TEntity : class
                     => repository.WhereAsync(specification, queryOptions, e => e);
 
-        public static Task<IReadOnlyList<TEntity>> GetAllAsync<TEntity>(
-            this IFindRepository<TEntity> repository)
-                where TEntity : class
-                    => repository.GetAllAsync(new NoneQueryOptions<TEntity>());
+        #endregion
     }
 }

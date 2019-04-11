@@ -117,9 +117,6 @@ namespace LanguageExtensions.DataAccess.EntityFramework
 
         #region IFindRepository Implementation
 
-        public async Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification)
-            => await _dbSet.AsNoTracking().FirstOrDefaultAsync(specification);
-
         public async Task<bool> AnyAsync(Specification<TEntity> specification) 
             => await _dbSet.AsNoTracking().AnyAsync(specification);
 
@@ -129,15 +126,11 @@ namespace LanguageExtensions.DataAccess.EntityFramework
             Expression<Func<TEntity, TResult>> selector)
                 => await _dbSet.AsNoTracking().Where(specification).Apply(queryOptions).Select(selector).ToListAsync();
 
-        public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
-            => await _dbSet.AsNoTracking().Apply(queryOptions).ToListAsync();
-
         #endregion
 
         #region IAggregateRepository Implementation
 
-        public async Task<long> Count() => await _dbSet.CountAsync();
-        public async Task<long> Count(Specification<TEntity> specification) => await _dbSet.CountAsync(specification);
+        public async Task<long> CountAsync(Specification<TEntity> specification) => await _dbSet.CountAsync(specification);
 
         #endregion
 

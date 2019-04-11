@@ -107,9 +107,6 @@ namespace LanguageExtensions.DataAccess.MongoDb
 
         #region IFindRepository Implementation
 
-        public async Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification) 
-            => await GetCollection().Find(GetFilter(specification)).FirstOrDefaultAsync();
-
         public async Task<bool> AnyAsync(Specification<TEntity> specification) 
             => await GetCollection().Find(GetFilter(specification)).AnyAsync();
 
@@ -123,15 +120,11 @@ namespace LanguageExtensions.DataAccess.MongoDb
                     .Apply(queryOptions)
                     .Select(selector).ToList());
 
-        public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
-            => await Task.Run(() => GetCollection().AsQueryable().Apply(queryOptions).ToList());
-
         #endregion
 
         #region IAggregateRepository Implementation
 
-        public async Task<long> Count() => await GetCollection().EstimatedDocumentCountAsync();
-        public async Task<long> Count(Specification<TEntity> specification) => await GetCollection().CountDocumentsAsync(GetFilter(specification));
+        public async Task<long> CountAsync(Specification<TEntity> specification) => await GetCollection().CountDocumentsAsync(GetFilter(specification));
 
         #endregion
         

@@ -7,6 +7,6 @@ namespace LanguageExtensions.DataAccess
     public interface IAggregateRepository<TEntity> : IDisposable
         where TEntity : class
     {
-        Task<long> Count(Specification<TEntity> specification);
+        Task<long> CountAsync(Specification<TEntity> specification);
     }
 }

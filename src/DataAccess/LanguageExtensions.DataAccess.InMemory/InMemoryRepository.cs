@@ -115,7 +115,6 @@ namespace LanguageExtensions.DataAccess.InMemory
 
         #region IFindRepository Implementation
 
-        public Task<TEntity> FirstOrDefaultAsync(Specification<TEntity> specification) => Task.FromResult(_data.FirstOrDefault(specification.IsSatisfiedBy));
         public Task<bool> AnyAsync(Specification<TEntity> specification) => Task.FromResult(_data.Any(specification.IsSatisfiedBy));
 
         public async Task<IReadOnlyList<TResult>> WhereAsync<TResult>(
@@ -128,18 +127,11 @@ namespace LanguageExtensions.DataAccess.InMemory
                     .Select(selector)
                     .ToList();
 
-
-        public async Task<IReadOnlyList<TEntity>> GetAllAsync(IQueryOptions<TEntity> queryOptions)
-                => _data.AsQueryable()
-                    .Apply(queryOptions)
-                    .ToList();
-
         #endregion
 
         #region IAggregateRepository Implementation
 
-        public Task<long> Count() => Task.FromResult(_data.LongCount());
-        public Task<long> Count(Specification<TEntity> specification) => Task.FromResult(_data.Where(specification.IsSatisfiedBy).LongCount());
+        public Task<long> CountAsync(Specification<TEntity> specification) => Task.FromResult(_data.Where(specification.IsSatisfiedBy).LongCount());
 
         #endregion
 
