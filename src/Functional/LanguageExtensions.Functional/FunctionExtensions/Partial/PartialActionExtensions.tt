@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 <# 
-string namespaceToUse = "Jst4Code.FunctionalCS";
+string namespaceToUse = "LanguageExtensions.Functional";
 string staticClassName = "PartialActionExtensions";
 int funcVariations = 15;
 #>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace Jst4Code.FunctionalCS
+namespace LanguageExtensions.Functional
 {
     public static partial class PartialFuncExtensions
     {

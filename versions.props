@@ -24,4 +24,10 @@
     <SpecificationSuffix>rc1</SpecificationSuffix>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <FunctionalBaseVersion>1.0</FunctionalBaseVersion>
+    <FunctionalPatchVersion>0</FunctionalPatchVersion>
+    <FunctionalSuffix>rc1</FunctionalSuffix>
+  </PropertyGroup>
+
 </Project>
